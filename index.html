@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Audria Neviezka — AI Evaluator, Bilingual Specialist & EdTech Creator</title>
+  <meta name="description" content="Portfolio of Audria Neviezka Sarasti Syafrodin — Educator, Academic Researcher, Bilingual Specialist (Indonesian & Arabic), and AI Training & Evaluation Specialist." />
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Plus Jakarta Sans, JetBrains Mono & Amiri (for subtle Arabic calligraphy accent) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+            arabic: ['"Amiri"', 'serif'],
+          },
+          colors: {
+            surface: {
+              light: '#FAFAFA',
+              dark: '#09090B',
+            },
+            card: {
+              light: '#FFFFFF',
+              dark: '#111114',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom subtle background grid & spotlight card effects */
+    .bg-grid-pattern {
+      background-size: 32px 32px;
+      background-image: 
+        linear-gradient(to right, rgba(128, 128, 128, 0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(128, 128, 128, 0.06) 1px, transparent 1px);
+    }
+
+    .spotlight-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .spotlight-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(16, 185, 129, 0.08),
+        transparent 45%
+      );
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .dark .spotlight-card::before {
+      background: radial-gradient(
+        500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(52, 211, 153, 0.11),
+        transparent 45%
+      );
+    }
+
+    .spotlight-card:hover::before {
+      opacity: 1;
+    }
+
+    /* Smooth fade transition for filtered elements */
+    .skill-item {
+      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Print styling for clean PDF export */
+    @media print {
+      .no-print { display: none !important; }
+      body { background: #fff !important; color: #000 !important; }
+      .spotlight-card { border: 1px solid #e5e7eb !important; box-shadow: none !important; }
+    }
+  </style>
+</head>
+<body class="bg-surface-light text-zinc-900 dark:bg-surface-dark dark:text-zinc-100 font-sans antialiased selection:bg-emerald-500/20 selection:text-emerald-700 dark:selection:text-emerald-300 bg-grid-pattern transition-colors duration-300">
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none no-print">
+    <div class="flex items-center gap-2.5 px-4 py-3 rounded-xl bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 shadow-xl text-sm font-medium">
+      <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 dark:text-emerald-600"></i>
+      <span id="toast-message">Email copied to clipboard!</span>
+    </div>
+  </div>
+
+  <!-- Minimal Floating Navigation -->
+  <header class="sticky top-4 z-40 px-4 sm:px-6 no-print">
+    <nav class="max-w-5xl mx-auto flex items-center justify-between px-4 py-2.5 rounded-2xl bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border border-zinc-200/80 dark:border-zinc-800/80 shadow-sm">
+      <a href="#" class="flex items-center gap-2.5 group">
+        <div class="w-8 h-8 rounded-lg bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 flex items-center justify-center font-mono font-bold text-xs tracking-tighter group-hover:scale-105 transition-transform">
+          AN
+        </div>
+        <span class="font-semibold text-sm tracking-tight hidden sm:inline-block">Audria Neviezka</span>
+      </a>
+
+      <div class="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm font-medium text-zinc-600 dark:text-zinc-400">
+        <a href="#competencies" class="px-3 py-1.5 rounded-lg hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800/70 transition-colors">Skills</a>
+        <a href="#ai-workbench" class="px-3 py-1.5 rounded-lg hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800/70 transition-colors">AI Rubric</a>
+        <a href="#experience" class="px-3 py-1.5 rounded-lg hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800/70 transition-colors">Experience</a>
+        <a href="#education" class="px-3 py-1.5 rounded-lg hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800/70 transition-colors">Education</a>
+      </div>
+
+      <div class="flex items-center gap-1.5">
+        <button onclick="window.print()" title="Print / Save as PDF" class="p-2 rounded-lg text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+          <i data-lucide="printer" class="w-4 h-4"></i>
+        </button>
+        <button id="theme-toggle" aria-label="Toggle Dark Mode" class="p-2 rounded-lg text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+          <i data-lucide="moon" class="w-4 h-4 block dark:hidden"></i>
+          <i data-lucide="sun" class="w-4 h-4 hidden dark:block"></i>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 pt-10 pb-24 space-y-12">
+
+    <!-- HERO & BENTO OVERVIEW -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+      <!-- Main Identity Card -->
+      <div class="lg:col-span-8 spotlight-card rounded-3xl bg-card-light dark:bg-card-dark border border-zinc-200/80 dark:border-zinc-800/80 p-7 sm:p-9 flex flex-col justify-between shadow-sm">
+        <div class="relative z-10">
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              Open for Remote AI Training, Research &amp; Linguistic Roles
+            </span>
+            <span class="font-arabic text-xl text-zinc-400 dark:text-zinc-500 select-none" dir="rtl" title="Audria Neviezka">أودريا نيفيزكا</span>
+          </div>
+
+          <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white leading-[1.15] mb-3">
+            AUDRIA NEVIEZKA<br class="hidden sm:inline" /> SARASTI SYAFRODIN
+          </h1>
+
+          <p class="text-sm sm:text-base font-mono text-emerald-700 dark:text-emerald-400 mb-5">
+            Educator &bull; Academic Researcher &bull; Bilingual Specialist (ID / AR) &bull; AI Evaluator
+          </p>
+
+          <p class="text-sm sm:text-[15px] leading-relaxed text-zinc-600 dark:text-zinc-300">
+            Detail-oriented Educator, Academic Researcher, and Bilingual Specialist (Indonesian &amp; Arabic) with strong analytical, instructional design, and digital content creation skills. Experienced in authoring structured learning modules, conducting academic research, and evaluating text quality for clarity, accuracy, and logical consistency. Adept at following complex rubric guidelines, performing thorough fact-checking, and delivering high-precision linguistic and technical outputs in remote work environments.
+          </p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="relative z-10 flex flex-wrap items-center gap-3 mt-8 pt-6 border-t border-zinc-100 dark:border-zinc-800/80 no-print">
+          <button onclick="copyEmail()" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 text-xs sm:text-sm font-semibold hover:opacity-90 transition-all shadow-sm">
+            <i data-lucide="copy" class="w-4 h-4"></i>
+            <span>drnvzkbos@gmail.com</span>
+          </button>
+
+          <a href="https://wa.me/62881012729009" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-100 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 text-xs sm:text-sm font-medium hover:bg-zinc-200/70 dark:hover:bg-zinc-700/80 transition-colors">
+            <i data-lucide="message-circle" class="w-4 h-4 text-emerald-600 dark:text-emerald-400"></i>
+            <span>+62 881-0127-29009</span>
+          </a>
+
+          <div class="flex items-center gap-2 ml-auto">
+            <a href="#" aria-label="LinkedIn Profile" title="LinkedIn Profile" class="p-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:border-zinc-300 dark:hover:border-zinc-700 transition-colors">
+              <i data-lucide="linkedin" class="w-4 h-4"></i>
+            </a>
+            <a href="#" aria-label="GitHub Portfolio" title="GitHub Portfolio" class="p-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:border-zinc-300 dark:hover:border-zinc-700 transition-colors">
+              <i data-lucide="github" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Side Bento Stack: Location, Languages, Quick Metrics -->
+      <div class="lg:col-span-4 flex flex-col gap-5">
+        <!-- Location & Remote Readiness -->
+        <div class="spotlight-card rounded-3xl bg-card-light dark:bg-card-dark border border-zinc-200/80 dark:border-zinc-800/80 p-6 shadow-sm">
+          <div class="relative z-10 flex items-start justify-between">
+            <div>
+              <span class="text-xs font-mono uppercase tracking-wider text-zinc-400 dark:text-zinc-500">Base &amp; Timezone</span>
+              <h2 class="text-base font-bold mt-1 flex items-center gap-1.5">
+                <i data-lucide="map-pin" class="w-4 h-4 text-emerald-600 dark:text-emerald-400"></i>
+                Temanggung, Indonesia
+              </h2>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">UTC+7 (WIB) &bull; Async &amp; Remote Ready</p>
+            </div>
+            <div class="p-2.5 rounded-2xl bg-zinc-100 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300">
+              <i data-lucide="globe" class="w-5 h-5"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Languages Proficiency Card -->
+        <div class="spotlight-card rounded-3xl bg-card-light dark:bg-card-dark border border-zinc-200/80 dark:border-zinc-800/80 p-6 flex-1 flex flex-col justify-between shadow-sm">
+          <div class="relative z-10">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-mono uppercase tracking-wider text-zinc-400 dark:text-zinc-500">Language Matrix</span>
+              <i data-lucide="languages" class="w-4 h-4 text-zinc-400"></i>
+            </div>
+
+            <div class="space-y-4">
+              <div>
+                <div class="flex justify-between items-baseline text-sm mb-1">
+                  <span class="font-semibold">Indonesian</span>
+                  <span class="text-xs font-mono text-emerald-600 dark:text-emerald-400">Native</span>
+                </div>
+                <div class="w-full h-1.5 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
+                  <div class="h-full bg-emerald-500 rounded-full w-full"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between items-baseline text-sm mb-1">
+                  <span class="font-semibold flex items-center gap-2">
+                    Arabic <span class="font-arabic text-base text-zinc-400 font-normal">العربية</span>
+                  </span>
+                  <span class="text-xs font-mono text-emerald-600 dark:text-emerald-400">Full Professional</span>
+                </div>
+                <p class="text-[11px] text-zinc-500 dark:text-zinc-400 mb-1.5">Reading, Writing, Teaching, Academic Analysis</p>
+                <div class="w-full h-1.5 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
+                  <div class="h-full bg-emerald-500 rounded-full w-[95%]"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between items-baseline text-sm mb-1">
+                  <span class="font-semibold">English</span>
+                  <span class="text-xs font-mono text-zinc-500 dark:text-zinc-400">Professional Working</span>
+                </div>
+                <p class="text-[11px] text-zinc-500 dark:text-zinc-400 mb-1.5">Guideline analysis, reading &amp; written evaluation</p>
+                <div class="w-full h-1.5 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
+                  <div class="h-full bg-zinc-700 dark:bg-zinc-300 rounded-full w-[82%]"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CORE COMPETENCIES & ALIGNER SKILLS (INTERACTIVE FILTER) -->
+    <section id="competencies" class="space-y-5">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div>
+          <span class="text-xs font-mono uppercase tracking-wider text-emerald-600 dark:text-emerald-400">01 // Capabilities</span>
+          <h2 class="text-xl sm:text-2xl font-bold tracking-tight mt-0.5">Core Competencies &amp; Aligner Skills</h2>
+        </div>
+
+        <!-- Interactive Filter Pills -->
+        <div class="flex flex-wrap gap-1.5 p-1 rounded-xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 no-print" role="tablist">
+          <button onclick="filterSkills('all')" data-filter="all" class="filter-btn active px-3 py-1.5 rounded-lg text-xs font-medium bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white shadow-sm transition-all">
+            All Domains
+          </button>
+          <button onclick="filterSkills('ai')" data-filter="ai" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-all">
+            AI &amp; RLHF
+          </button>
+          <button onclick="filterSkills('linguistics')" data-filter="linguistics" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-all">
+            Linguistics
+          </button>
+          <button onclick="filterSkills('tech')" data-filter="tech" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-all">
+            Tech &amp; Design
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5" id="skills-grid">
+        <!-- Domain 1: AI Training & Evaluation -->
+        <div data-category="ai" class="skill-card spotlight-card rounded-3xl bg-card-light dark:bg-card-dark border border-zinc-200/80 dark:border-zinc-800/80 p-6 shadow-sm">
+          <div class="relative z-10">
+            <div class="w-10 h-10 rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-4">
+              <i data-lucide="cpu" class="w-5 h-5"></i>
+            </div>
+            <h3 class="text-base font-bold mb-1">AI Training &amp; Evaluation</h3>
+            <p class="text-xs text-zinc-500 dark:text-zinc-400 mb-4">Precision human-in-the-loop alignment &amp; quality auditing.</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-2.5 py-1 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-200/60 dark:border-zinc-700/60">Prompt Engineering</span>
+              <span class="px-2.5 py-1 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-200/60 dark:border-zinc-700/60">Response Ranking &amp; Evaluation (RLHF)</span>
+              <span class="px-2.5 py-1 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-200/60 dark:border-zinc-700/60">Fact-Checking</span>
+              <span class="px-2.5 py-1 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-200/60 dark:border-zinc-700/60">Rubric Adherence</span>
+              <span class="px-2.5 py-1 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-200/60 dark:border-zinc-700/60">Error &amp; Hallucination Detection</span>
+              <span class="px-2.5 py-1 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-200/60 dark:border-zinc-700/60">Content Moderation</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Domain 2: Linguistics & Writing -->
+        <div data-category="linguistics" class="skill-card spotlight-card rounded-3xl bg-card-light dark:bg-card-dark border border-zinc-200/80 dark:border-zinc-800/80 p-6 shadow-sm">
+          <div class="relative z-10">
+            <div class="w-10 h-10 rounded-2xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center mb-4">
+              <i data-lucide="feather" class="w-5 h-5"></i>
+            </div>
+            <h3 class="text-base font-bold mb-1">Linguistics &amp; Writing</h3>
+            <p class="text-xs text-zinc-500 dark:text-zinc-400 mb-4">Cross-lingual nuance, academic rigor &amp; curriculum structure.</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-2.5 py-1 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-200/60 dark:border-zinc-700/60">Bilingual Fluency (ID Native / AR Academic)</span>
+              <span class="px-2.5 py-1 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-200/60 dark:border-zinc-700/60">English (Professional Working)</span>
+              <span class="px-2.5 py-1 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-200/60 dark:border-zinc-700/60">Academic Writing</span>
+              <span class="px-2.5 py-1 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-200/60 dark:border-zinc-700/60">Copyediting</span>
+              <span class="px-2.5 py-1 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-200/60 dark:border-zinc-700/60">Curriculum &amp; Module Authoring</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Domain 3: Technical & Digital Tools -->
+        <div data-category="tech" class="skill-card spotlight-card rounded-3xl bg-card-light dark:bg-card-dark border border-zinc-200/80 dark:border-zinc-800/80 p-6 shadow-sm">
+          <div class="relative z-10">
+            <div class="w-10 h-10 rounded-2xl bg-sky-500/10 text-sky-600 dark:text-sky-400 flex items-center justify-center mb-4">
+              <i data-lucide="layers" class="w-5 h-5"></i>
+            </div>
+            <h3 class="text-base font-bold mb-1">Technical &amp; Digital Tools</h3>
+            <p class="text-xs text-zinc-500 dark:text-zinc-400 mb-4">Interactive educational prototyping &amp; clean web deployment.</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-2.5 py-1 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-200/60 dark:border-zinc-700/60">HTML / CSS</span>
+              <span class="px-2.5 py-1 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-200/60 dark:border-zinc-700/60">GitHub Pages Deployment</span>
+              <span class="px-2.5 py-1 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-200/60 dark:border-zinc-700/60">Figma (UI/UX Prototyping)</span>
+              <span class="px-2.5 py-1 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-200/60 dark:border-zinc-700/60">GDevelop (No-Code Logic &amp; Event Design)</span>
+              <span class="px-2.5 py-1 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-200/60 dark:border-zinc-700/60">Flutter / VS Code (Basic App Dev)</span>
+              <span class="px-2.5 py-1 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-200/60 dark:border-zinc-700/60">Data Entry &amp; Administration</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE AI ALIGNER & RUBRIC EVALUATION WORKBENCH -->
+    <section id="ai-workbench" class="spotlight-card rounded-3xl bg-card-light dark:bg-card-dark border border-zinc-200/80 dark:border-zinc-800/80 p-6 sm:p-8 shadow-sm no-print">
+      <div class="relative z-10">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+          <div>
+            <div class="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-1">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+              <span>Interactive Evaluation Sample</span>
+            </div>
+            <h2 class="text-lg sm:text-xl font-bold">RLHF Rubric Adherence &amp; Hallucination Audit</h2>
+          </div>
+
+          <div class="flex gap-1.5">
+            <button onclick="switchAuditCase(0)" id="case-btn-0" class="case-tab px-3 py-1.5 rounded-lg text-xs font-mono font-medium bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 transition-colors">
+              Case 01: Bilingual Grammar
+            </button>
+            <button onclick="switchAuditCase(1)" id="case-btn-1" class="case-tab px-3 py-1.5 rounded-lg text-xs font-mono font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors">
+              Case 02: Fact-Check &amp; Logic
+            </button>
+          </div>
+        </div>
+
+        <!-- Prompt Banner -->
+        <div class="p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-900/90 border border-zinc-200/70 dark:border-zinc-800 mb-5">
+          <span class="text-[11px] font-mono uppercase text-zinc-400 block mb-1">User Prompt &amp; System Constraint</span>
+          <p id="audit-prompt" class="text-xs sm:text-sm font-medium text-zinc-800 dark:text-zinc-200"></p>
+        </div>
+
+        <!-- Side-by-Side Model Comparison -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+          <div class="p-4 rounded-2xl border border-rose-200/80 dark:border-rose-900/50 bg-rose-50/40 dark:bg-rose-950/10">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-mono font-semibold text-rose-700 dark:text-rose-400">Model Response A (Rejected)</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-rose-500/15 text-rose-700 dark:text-rose-300">Score: 2/5</span>
+            </div>
+            <p id="audit-resp-a" class="text-xs sm:text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed"></p>
+          </div>
+
+          <div class="p-4 rounded-2xl border border-emerald-200/80 dark:border-emerald-900/50 bg-emerald-50/40 dark:bg-emerald-950/10">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-mono font-semibold text-emerald-700 dark:text-emerald-400">Model Response B (Preferred)</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-500/15 text-emerald-700 dark:text-emerald-300">Score: 5/5</span>
+            </div>
+            <p id="audit-resp-b" class="text-xs sm:text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed"></p>
+          </div>
+        </div>
+
+        <!-- Evaluator Rationale -->
+        <div class="p-4 rounded-2xl bg-zinc-100/70 dark:bg-zinc-800/50 border border-zinc-200/70 dark:border-zinc-700/60 flex items-start gap-3">
+          <i data-lucide="clipboard-check" class="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5"></i>
+          <div>
+            <span class="text-xs font-mono font-semibold text-zinc-900 dark:text-zinc-100 block mb-1">Human Aligner Rationale (Rubric Breakdown)</span>
+            <p id="audit-rationale" class="text-xs sm:text-[13px] text-zinc-600 dark:text-zinc-300 leading-relaxed"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RELEVANT EXPERIENCE -->
+    <section id="experience" class="space-y-5">
+      <div>
+        <span class="text-xs font-mono uppercase tracking-wider text-emerald-600 dark:text-emerald-400">02 // Track Record</span>
+        <h2 class="text-xl sm:text-2xl font-bold tracking-tight mt-0.5">Relevant Experience</h2>
+      </div>
+
+      <div class="space-y-4">
+        <!-- Role 1 -->
+        <article class="spotlight-card rounded-3xl bg-card-light dark:bg-card-dark border border-zinc-200/80 dark:border-zinc-800/80 p-6 sm:p-7 shadow-sm">
+          <div class="relative z-10">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+              <div>
+                <h3 class="text-base sm:text-lg font-bold text-zinc-900 dark:text-white">
+                  Elementary School Educator &amp; Academic Content Developer
+                </h3>
+                <p class="text-sm font-medium text-emerald-700 dark:text-emerald-400">SD Muhammadiyah Temanggung</p>
+              </div>
+              <span class="self-start sm:self-center px-3 py-1 rounded-full text-xs font-mono bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200/60 dark:border-zinc-700/60">
+                2023 – Present
+              </span>
+            </div>
+            <ul class="space-y-2.5 text-sm text-zinc-600 dark:text-zinc-300">
+              <li class="flex items-start gap-2.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-2 shrink-0"></span>
+                <span>Designed and evaluated student assessments, including reviewing written responses for grammatical precision, logical coherence, and factual accuracy.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-2 shrink-0"></span>
+                <span>Managed institutional administrative data with high accuracy and attention to detail.</span>
+              </li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Role 2 -->
+        <article class="spotlight-card rounded-3xl bg-card-light dark:bg-card-dark border border-zinc-200/80 dark:border-zinc-800/80 p-6 sm:p-7 shadow-sm">
+          <div class="relative z-10">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+              <div>
+                <h3 class="text-base sm:text-lg font-bold text-zinc-900 dark:text-white">
+                  Graphic Designer &amp; Digital Media Coordinator
+                </h3>
+                <p class="text-sm font-medium text-emerald-700 dark:text-emerald-400">SD Muhammadiyah Temanggung</p>
+              </div>
+              <span class="self-start sm:self-center px-3 py-1 rounded-full text-xs font-mono bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200/60 dark:border-zinc-700/60">
+                2023 – Present
+              </span>
+            </div>
+            <ul class="space-y-2.5 text-sm text-zinc-600 dark:text-zinc-300">
+              <li class="flex items-start gap-2.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-2 shrink-0"></span>
+                <span>Created visual assets, book covers, instructional media, and social media content while maintaining visual identity consistency and clear communication.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-2 shrink-0"></span>
+                <span>Developed interactive 2D educational games and web interfaces using Figma, GDevelop, and GitHub Pages, demonstrating strong logical sequencing and problem-solving skills.</span>
+              </li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Role 3 -->
+        <article class="spotlight-card rounded-3xl bg-card-light dark:bg-card-dark border border-zinc-200/80 dark:border-zinc-800/80 p-6 sm:p-7 shadow-sm">
+          <div class="relative z-10">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+              <div>
+                <h3 class="text-base sm:text-lg font-bold text-zinc-900 dark:text-white">
+                  Academic Researcher (Master’s Level)
+                </h3>
+                <p class="text-sm font-medium text-emerald-700 dark:text-emerald-400">Universitas Darussalam Gontor</p>
+              </div>
+              <span class="self-start sm:self-center px-3 py-1 rounded-full text-xs font-mono bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200/60 dark:border-zinc-700/60">
+                2021 – 2023
+              </span>
+            </div>
+            <ul class="space-y-2.5 text-sm text-zinc-600 dark:text-zinc-300">
+              <li class="flex items-start gap-2.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-2 shrink-0"></span>
+                <span>Conducted structured Research and Development (R&amp;D) studies focusing on educational technology and Android-based language learning media.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-2 shrink-0"></span>
+                <span>Synthesized complex academic literature, validated research instruments, and maintained rigorous documentation standards.</span>
+              </li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education" class="space-y-5">
+      <div>
+        <span class="text-xs font-mono uppercase tracking-wider text-emerald-600 dark:text-emerald-400">03 // Academic Background</span>
+        <h2 class="text-xl sm:text-2xl font-bold tracking-tight mt-0.5">Education</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div class="spotlight-card rounded-3xl bg-card-light dark:bg-card-dark border border-zinc-200/80 dark:border-zinc-800/80 p-6 shadow-sm">
+          <div class="relative z-10 flex items-start gap-4">
+            <div class="w-11 h-11 rounded-2xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center shrink-0 text-zinc-800 dark:text-zinc-200 font-mono font-bold text-xs">
+              S2
+            </div>
+            <div>
+              <span class="text-xs font-mono text-emerald-600 dark:text-emerald-400">Master’s Degree</span>
+              <h3 class="text-base font-bold mt-0.5">Master of Education (S2) in Arabic Language Education</h3>
+              <p class="text-sm text-zinc-500 dark:text-zinc-400 mt-1">Universitas Darussalam Gontor</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="spotlight-card rounded-3xl bg-card-light dark:bg-card-dark border border-zinc-200/80 dark:border-zinc-800/80 p-6 shadow-sm">
+          <div class="relative z-10 flex items-start gap-4">
+            <div class="w-11 h-11 rounded-2xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center shrink-0 text-zinc-800 dark:text-zinc-200 font-mono font-bold text-xs">
+              S1
+            </div>
+            <div>
+              <span class="text-xs font-mono text-zinc-500 dark:text-zinc-400">Bachelor’s Degree</span>
+              <h3 class="text-base font-bold mt-0.5">Bachelor of Education (S1) in Arabic Language Education</h3>
+              <p class="text-sm text-zinc-500 dark:text-zinc-400 mt-1">Universitas Darussalam Gontor</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Minimal Footer -->
+  <footer class="border-t border-zinc-200/80 dark:border-zinc-800/80 py-8 px-4 sm:px-6 text-center text-xs text-zinc-500 dark:text-zinc-400">
+    <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p>&copy; <span id="year"></span> Audria Neviezka Sarasti Syafrodin. Built for GitHub Pages.</p>
+      <div class="flex items-center gap-4 font-mono">
+        <button onclick="copyEmail()" class="hover:text-zinc-900 dark:hover:text-white transition-colors">drnvzkbos@gmail.com</button>
+        <span>&bull;</span>
+        <span>Temanggung, ID</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Dark Mode Toggle with System Preference Support
+    const htmlEl = document.documentElement;
+    const themeToggle = document.getElementById('theme-toggle');
+
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      htmlEl.classList.add('dark');
+    } else {
+      htmlEl.classList.remove('dark');
+    }
+
+    themeToggle.addEventListener('click', () => {
+      htmlEl.classList.toggle('dark');
+      localStorage.theme = htmlEl.classList.contains('dark') ? 'dark' : 'light';
+    });
+
+    // Spotlight Cursor Tracking on Cards
+    document.querySelectorAll('.spotlight-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+      });
+    });
+
+    // Copy Email with Toast Notification (iFrame-safe fallback included)
+    function copyEmail() {
+      const email = 'drnvzkbos@gmail.com';
+      const tempInput = document.createElement('input');
+      tempInput.value = email;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempInput);
+
+      showToast('Copied drnvzkbos@gmail.com to clipboard');
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-message').textContent = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 2800);
+    }
+
+    // Competency Filter Logic
+    function filterSkills(category) {
+      const buttons = document.querySelectorAll('.filter-btn');
+      const cards = document.querySelectorAll('.skill-card');
+
+      buttons.forEach(btn => {
+        if (btn.dataset.filter === category) {
+          btn.classList.add('bg-white', 'dark:bg-zinc-800', 'text-zinc-900', 'dark:text-white', 'shadow-sm');
+          btn.classList.remove('text-zinc-600', 'dark:text-zinc-400');
+        } else {
+          btn.classList.remove('bg-white', 'dark:bg-zinc-800', 'text-zinc-900', 'dark:text-white', 'shadow-sm');
+          btn.classList.add('text-zinc-600', 'dark:text-zinc-400');
+        }
+      });
+
+      cards.forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
+          card.style.display = 'block';
+          setTimeout(() => {
+            card.style.opacity = '1';
+            card.style.transform = 'scale(1)';
+          }, 10);
+        } else {
+          card.style.opacity = '0';
+          card.style.transform = 'scale(0.97)';
+          setTimeout(() => {
+            card.style.display = 'none';
+          }, 200);
+        }
+      });
+    }
+
+    // Interactive AI Evaluation Workbench Data
+    const auditCases = [
+      {
+        prompt: "Explain the grammatical function of 'مَفْعُولٌ بِهِ' (Maf'ul Bih) in Arabic syntax and provide an Indonesian translation with vowel markings (harakat).",
+        respA: "Maf'ul bih adalah subjek dalam kalimat bahasa Arab yang selalu berharakat dhammah. Contoh: كَتَبَ الطَّالِبُ الدَّرْسُ (Siswa menulis pelajaran).",
+        respB: "Maf'ul bih (المَفْعُولُ بِهِ) adalah objek penderita dalam jumlah fi'liyah yang wajib berstatus manshub (نَصْب). Contoh: كَتَبَ الطَّالِبُ الدَّرْسَ (Kataba ath-thālibu ad-darsa — Siswa itu telah menulis pelajaran). Kata 'الدَّرْسَ' berharakat fathah sebagai tanda nashab.",
+        rationale: "Response A contains a critical factual & grammatical hallucination: it misidentifies Maf'ul Bih as the subject (Fa'il) and assigns an incorrect nominative ending (dhammah) on 'الدَّرْسُ'. Response B accurately defines the syntactic role, applies proper i'rab (manshub/fathah), and provides a clear Indonesian gloss."
+      },
+      {
+        prompt: "Summarize the primary objective of Research & Development (R&D) in educational media without introducing unsupported statistical claims.",
+        respA: "R&D in education aims to design and validate instructional products, proven to boost student exam scores by 87% across all Indonesian elementary schools.",
+        respB: "Educational R&D focuses on systematically designing, developing, and validating instructional products—such as interactive learning media—through iterative expert review and field testing to ensure pedagogical effectiveness and usability.",
+        rationale: "Response A violates the negative constraint by fabricating an unverified statistic ('boost student exam scores by 87%'). Response B adheres strictly to the prompt constraints, accurately describing the R&D validation lifecycle with zero hallucinated metrics."
+      }
+    ];
+
+    function switchAuditCase(index) {
+      const data = auditCases[index];
+      document.getElementById('audit-prompt').textContent = data.prompt;
+      document.getElementById('audit-resp-a').textContent = data.respA;
+      document.getElementById('audit-resp-b').textContent = data.respB;
+      document.getElementById('audit-rationale').textContent = data.rationale;
+
+      document.querySelectorAll('.case-tab').forEach((btn, i) => {
+        if (i === index) {
+          btn.className = 'case-tab px-3 py-1.5 rounded-lg text-xs font-mono font-medium bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 transition-colors';
+        } else {
+          btn.className = 'case-tab px-3 py-1.5 rounded-lg text-xs font-mono font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors';
+        }
+      });
+    }
+
+    // Load default case on init
+    switchAuditCase(0);
+  </script>
+</body>
+</html>
